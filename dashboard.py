@@ -23,9 +23,7 @@ st.markdown(
 # ---------------------------
 # Data: ZIPs and manual populations (from your Colab code)
 # ---------------------------
-ORIGINAL_ZIPS = [
-    33012, 33157, 33186, 33015, 33033
-]
+ORIGINAL_ZIPS = [33012, 33157, 33186, 33015, 33033, 33178, 33142, 33032, 33177, 33018, 33125, 33196, 33161, 33176, 33165, 33175, 33162, 33179, 33193, 33147, 33126, 33016, 33155, 33169, 33010, 33160, 33014, 33172, 33055, 33134, 33056, 33030, 33141, 33139, 33135, 33133, 33174, 33183, 33173, 33130, 33180, 33156, 33150, 33143, 33054, 33013, 33185, 33145, 33138, 33127, 33144, 33166, 33137, 33189, 33034, 33168, 33167, 33131, 33184, 33181, 33140, 33187, 33146, 33132, 33190, 33136, 33035, 33129, 33149, 33154, 33170, 33182, 33128, 33194, 33031, 33158, 33122, 33109, 33101, 33039]
 ZIPS = ORIGINAL_ZIPS.copy()
 I = J = ZIPS
 
@@ -62,10 +60,20 @@ Dmax = st.sidebar.slider("Maximum travel distance (miles)", min_value=1.0, max_v
 
 st.sidebar.markdown("---")
 st.sidebar.header("Solver options")
-solver_choice = st.sidebar.selectbox("Solver", options=["Auto (PULP_CBC_CMD)", "CBC: provide path", "GLPK_CMD"])
+solver_choice = st.sidebar.selectbox(
+    "Solver",
+    options=[
+        "Auto (PULP_CBC_CMD)",
+        "PuLP default (m.solve())",
+        "CBC: provide path",
+        "GLPK_CMD",
+    ],
+)
 cbc_path = ""
 if solver_choice == "CBC: provide path":
-    cbc_path = st.sidebar.text_input("Path to cbc.exe (e.g. C:\\\\cbc\\\\cbc.exe)", value="")
+    cbc_path = st.sidebar.text_input(
+        "Path to cbc.exe (e.g. C:\\cbc\\cbc.exe)", value=""
+    )
 
 st.sidebar.markdown("---")
 st.sidebar.header("Advanced")
@@ -370,9 +378,9 @@ else:
 # ---------------------------
 st.markdown("---")
 st.markdown(
-    "**Notes & Troubleshooting**\n\n"
-    "- On Windows you may need to provide a path to a compatible `cbc.exe` if the default CBC binary packaged with PuLP is incompatible with your Python architecture. "
-    "Download CBC (Windows x64) from the COIN-OR releases and enter the path in the Solver options. \n"
-    "- Alternatively, install GLPK and select `GLPK_CMD`.\n"
-    "- To avoid geocoding rate limits, upload a CSV with ZIP,lat,lon."
+    "Troubleshooting\n\n"
+    "- Windows --> use a `cbc.exe` file if incompatible with your computer. "
+    "Download CBC and enter the path in the Solver options. \n"
+    "- If this still does not work, install GLPK and select in Solver options.\n"
 )
+
